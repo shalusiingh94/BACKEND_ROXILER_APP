@@ -17,5 +17,8 @@
     "nodemon": "^3.0.3",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.2.0"
   }
 }
