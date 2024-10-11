@@ -1,10 +1,10 @@
-# roxiler-backend
+# ROXILER BACKEND
 
 This project aims to implement a backend system to manage and analyze product transactions. The backend is designed to interact with a third-party API to fetch product transaction data, and it provides various APIs for listing transactions, generating statistics, and creating charts based on the fetched data.
 
 ## Deployment
 
-The project is deployed and can be accessed at [https://vijay-roxiler-2024.onrender.com](https://vijay-roxiler-2024.onrender.com). You can use the following APIs to interact with the system.
+The project is deployed and can be accessed at https://shalusiingh94.github.io/ROXILER_APP_2024/. You can use the following APIs to interact with the system.
 ## API Endpoints
 
 ### List All Transactions
