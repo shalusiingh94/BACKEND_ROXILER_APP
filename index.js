@@ -28,8 +28,7 @@ let intializeDBAndServer = async () => {
 };
 intializeDBAndServer();
 
-//-----------------adding seed data to database-------------------------
-
+//adding seed data to database
 
 const fetchAndInsert = async () => {
   const response = await axios.get(
@@ -45,16 +44,14 @@ const fetchAndInsert = async () => {
    INSERT INTO products (id, title, price, description, category, image, sold, dateOfSale) 
    VALUES (
        ${item.id},
-       '${item.title.replace(/'/g, "''")}',
+       ${item.title.replace(/'/g, "''")}',
        ${item.price},
-       '${item.description.replace(/'/g, "''")}',
-       '${item.category.replace(/'/g, "''")}',
-       '${item.image.replace(/'/g, "''")}',
+       ${item.description.replace(/'/g, "''")}',
+       ${item.category.replace(/'/g, "''")}',
+       ${item.image.replace(/'/g, "''")}',
        ${item.sold},
-       '${item.dateOfSale.replace(/'/g, "''")}'
+       ${item.dateOfSale.replace(/'/g, "''")}'
    );
-`; /*The .replace(/'/g, "''") in the SQL query helps prevent SQL injection attacks by escaping single quotes.*/
-
       await db.run(query);
     }
   }
@@ -63,24 +60,8 @@ const fetchAndInsert = async () => {
 
 fetchAndInsert();
 
-
-//-----------------adding seed data to database-------------------------
-
 //   Create an API to list the all transactions
-//   - API should support search and pagination on product transactions
-//   - Based on the value of search parameters, it should match search text on product
-//   title/description/price and based on matching result it should return the product
-//   transactions
-//   - If search parameter is empty then based on applied pagination it should return all the
-//   records of that page number
-//   - Default pagination values will be like page = 1, per page = 10
-// API to list all transactions with search and pagination
 
-//http://localhost:3000/transactions?page=1$perPage=10&search=''
-
-// API to list all transactions with search and pagination
-
-//http://localhost:3000/transactions?page=1$perPage=10&search=''
 app.get('/', async (req, res) => {
     try {
         res.send('Welcome, this is Roxiler company assignment backend domain.Please access any path to get the data');
@@ -147,69 +128,8 @@ app.get('/transactions', async (req, res) => {
     }
 });
 
-
-// app.get('/transactions', async (req, res) => {
-//     try {
-//         const page = parseInt(req.query.page) || 1;
-//         const perPage = parseInt(req.query.perPage) || 10;
-//         const search = req.query.search ? req.query.search.toLowerCase() : '';
-//         const selectedMonth = req.query.month.toLowerCase() || 'march';
-        
-
-
-//         const monthMap = {
-//             'january': '01',
-//             'february': '02',
-//             'march': '03',
-//             'april': '04',
-//             'may': '05',
-//             'june': '06',
-//             'july': '07',
-//             'august': '08',
-//             'september': '09',
-//             'october': '10',
-//             'november': '11',
-//             'december': '12',
-//         };
-
-//         const numericMonth = monthMap[selectedMonth.toLowerCase()];
-
-//         // Construct SQL query with search and pagination
-//         const sqlQuery = `
-//         SELECT *
-//         FROM products
-//         WHERE
-//             strftime('%m', dateOfSale) = ?
-//             AND (
-//                 lower(title) LIKE '%${search}%'
-//                 OR lower(description) LIKE '%${search}%'
-//                 OR CAST(price AS TEXT) LIKE '%${search}%'
-//             )
-//         LIMIT ${perPage} OFFSET ${(page - 1) * perPage};
-//     `;
-
-//         // Execute the SQL query
-//         const rows = await db.all(sqlQuery,[numericMonth]);
-
-//         res.json({
-//             page,
-//             perPage,
-//             transactions: rows
-//         });
-
-//     } catch (e) {
-//         console.error(e.message);
-//         res.status(500).json({ error: 'Internal Server Error' });
-//     }
-// });
-
-// GET
 // Create an API for statistics
-// - Total sale amount of selected month
-// - Total number of sold items of selected month
-// - Total number of not sold items of selected month
 
-//http://localhost:3000/statistics?month=january
 app.get('/statistics', async (req, res) => {
     try {
         console.log('Request received for /statistics');
@@ -271,22 +191,8 @@ app.get('/statistics', async (req, res) => {
     }
 });
 
-
-// GET
 // Create an API for bar chart ( the response should contain price range and the number
-// of items in that range for the selected month regardless of the year )
-// - 0 - 100
-// - 101 - 200
-// - 201-300
-// - 301-400
-// - 401-500
-// - 501 - 600
-// - 601-700
-// - 701-800
-// - 801-900
-// - 901-above
 
-//http://localhost:3000/bar-chart?month=january
 app.get('/bar-chart', async (req, res) => {
     try {
         const selectedMonth = req.query.month || 'march';
@@ -345,15 +251,8 @@ app.get('/bar-chart', async (req, res) => {
     }
 });
 
-// GET
 // Create an API for pie chart Find unique categories and number of items from that
-// category for the selected month regardless of the year.
-// For example :
-// - X category : 20 (items)
-// - Y category : 5 (items)
-// - Z category : 3 (items)
 
-//http://localhost:3000/pie-chart?month=january
 app.get('/pie-chart', async (req, res) => {
     try {
         const selectedMonth = req.query.month || 'march';
